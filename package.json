@@ -1,0 +1,25 @@
+{
+  "name": "2d-game-engine-prototype",
+  "version": "1.0.0",
+  "description": "2d game engine on typescript",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nialvi/2d-game-engine-prototype.git"
+  },
+  "author": "Nikolaev Viktor <maclauddd@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nialvi/2d-game-engine-prototype/issues"
+  },
+  "homepage": "https://github.com/nialvi/2d-game-engine-prototype#readme",
+  "devDependencies": {
+    "parcel": "^1.12.4",
+    "typescript": "^4.1.3"
+  }
+}
