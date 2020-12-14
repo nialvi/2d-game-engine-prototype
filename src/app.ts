@@ -10,8 +10,8 @@ export class Application {
 
   constructor() {
     this.renderer = new PIXI.Renderer({
-      width: 800,
-      height: 600,
+      width: 720,
+      height: 1280,
       backgroundColor: 0xffc0cb,
     });
     this.root = new PIXI.Container();
