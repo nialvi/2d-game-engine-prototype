@@ -1,50 +1,55 @@
-export class Application {
-  view: HTMLCanvasElement;
+import * as PIXI from "pixi.js";
 
-  private context: CanvasRenderingContext2D;
+export class Application {
   private image: HTMLImageElement;
   private phase: number;
+  private renderer: PIXI.Renderer;
+  private root: PIXI.Container;
+  private sprite: PIXI.Sprite;
+  private ticker: PIXI.Ticker;
 
   constructor() {
-    this.view = document.createElement("canvas");
-
-    this.view.width = 800;
-    this.view.height = 600;
-
-    this.context = this.view.getContext("2d");
+    this.renderer = new PIXI.Renderer({
+      width: 800,
+      height: 600,
+      backgroundColor: 0xffc0cb,
+    });
+    this.root = new PIXI.Container();
 
     this.image = new Image();
-    this.image.src =
-      "https://www.clipartmax.com/png/full/479-4796082_praise-the-sun-transparent-dark-souls-sun-logo.png";
+    this.image.src = "assets/logo.png";
+
+    this.ticker = new PIXI.Ticker();
+
+    this.ticker.add(() => {
+      this.render();
+    }, -25);
+  }
+
+  get view() {
+    return this.renderer.view;
   }
 
   start() {
+    const { width, height } = this.view;
     this.phase = 0;
-    const gameLoop = () => {
+
+    this.sprite = new PIXI.Sprite(PIXI.Texture.from(this.image));
+    this.sprite.position.set(width / 2, height / 2);
+    this.sprite.scale.set(0.3, 0.3);
+    this.sprite.anchor.set(0.5, 0.5);
+
+    this.root.addChild(this.sprite);
+
+    this.ticker.add(() => {
       this.phase += 0.01;
+      this.sprite.rotation = this.phase;
+    });
 
-      this.render();
-      requestAnimationFrame(gameLoop);
-    };
-
-    requestAnimationFrame(gameLoop);
+    this.ticker.start();
   }
 
   render() {
-    const { width, height } = this.view;
-
-    this.context.fillStyle = "pink";
-    this.context.fillRect(0, 0, width, height);
-
-    const imageWidth = this.image.width;
-    const imageHeight = this.image.height;
-
-    this.context.save();
-    this.context.translate(width / 2, height / 2);
-    this.context.scale(0.3, 0.3);
-    this.context.rotate(this.phase);
-
-    this.context.drawImage(this.image, -imageWidth / 2, -imageHeight / 2);
-    this.context.restore();
+    this.renderer.render(this.root);
   }
 }
