@@ -1,11 +1,9 @@
 import * as PIXI from "pixi.js";
-import { Level } from "./levels";
-import { Main as MainLevel } from "./levels/main";
-import { Bunny as BunnyLevel } from "./levels/bunny";
+import { Game } from "./system/game";
 
 export class Application {
   private renderer: PIXI.Renderer;
-  private level: Level;
+  private game: Game;
 
   root: PIXI.Container;
   ticker: PIXI.Ticker;
@@ -23,7 +21,7 @@ export class Application {
       this.render();
     }, -25);
 
-    this.level = new MainLevel({});
+    this.game = new Game(this);
   }
 
   get view() {
@@ -32,12 +30,7 @@ export class Application {
 
   start() {
     this.ticker.start();
-    this.level.init(this);
-
-    setTimeout(() => {
-      this.level = new BunnyLevel({});
-      this.level.init(this);
-    }, 3000);
+    this.game.start();
   }
 
   render() {
