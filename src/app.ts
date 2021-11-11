@@ -2,11 +2,11 @@ import * as PIXI from "pixi.js";
 import { Game } from "./system/game";
 
 export class Application {
-  private renderer: PIXI.Renderer;
-  private game: Game;
-
+  game: Game;
   root: PIXI.Container;
   ticker: PIXI.Ticker;
+
+  private renderer: PIXI.Renderer;
 
   constructor() {
     this.renderer = new PIXI.Renderer({

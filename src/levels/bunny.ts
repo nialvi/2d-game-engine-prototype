@@ -7,7 +7,7 @@ export class Bunny extends Level {
   private phase: number;
   private sprite: PIXI.Sprite;
 
-  constructor(json) {
+  constructor(json = {}) {
     super(json);
 
     this.image = new Image();
@@ -16,15 +16,19 @@ export class Bunny extends Level {
   }
 
   init(app: Application) {
+    const { game } = app;
     const { width, height } = app.view;
+
     this.phase = 0;
 
     this.sprite = new PIXI.Sprite(PIXI.Texture.from(this.image));
     this.sprite.position.set(width / 2, height / 2);
+    this.sprite.anchor.set(0.5, 0.5);
+
     this.sprite.scale.set(3, 3);
     this.sprite.anchor.set(0.5, 0.5);
 
-    app.root.addChild(this.sprite);
+    game.world.addChild(this.sprite);
 
     app.ticker.add(() => {
       this.phase += 0.01;

@@ -7,7 +7,7 @@ export class Main extends Level {
   private phase: number;
   private sprite: PIXI.Sprite;
 
-  constructor(json) {
+  constructor(json = {}) {
     super(json);
 
     this.image = new Image();
@@ -17,6 +17,7 @@ export class Main extends Level {
   }
 
   init(app: Application) {
+    const { game } = app;
     const { width, height } = app.view;
     this.phase = 0;
 
@@ -24,9 +25,9 @@ export class Main extends Level {
     this.sprite.position.set(width / 2, height / 2);
     this.sprite.anchor.set(0.5, 0.5);
 
-    app.root.addChild(this.sprite);
+    game.world.addChild(this.sprite);
 
-    app.ticker.add(() => {
+    game.ticker.add(() => {
       this.phase += 0.01;
       this.sprite.rotation = this.phase;
     });
