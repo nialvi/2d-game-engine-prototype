@@ -1,8 +1,10 @@
 import * as PIXI from "pixi.js";
 import { Game } from "./system/game";
+import { Pack } from "./system/pack";
 
 export class Application {
   game: Game;
+  pack: Pack;
   root: PIXI.Container;
   ticker: PIXI.Ticker;
 
@@ -22,6 +24,7 @@ export class Application {
     }, -25);
 
     this.game = new Game(this);
+    // this.pack = new Pack(this); TODO
   }
 
   get view() {
